@@ -20,6 +20,7 @@ IRsend irsend(kIrLed);
 #define KEEPALIVEATIME 30 * 1000
 #define wifi_name "wifi名！2,4G的"
 #define wifi_password "wifi密码！"
+#define upUrl "远程升级固件地址"
 WiFiClient TCPclient;
 String TcpClient_Buff = "";  //初始化字符串，用于接收服务器发来的数据
 unsigned int TcpClient_BuffIndex = 0;

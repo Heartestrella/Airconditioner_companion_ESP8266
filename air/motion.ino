@@ -54,7 +54,7 @@ void doTCPClientTick() {
   if ((TcpClient_Buff.length() >= 1) && (millis() - TcpClient_preTick >= 200)) {
     TCPclient.flush();
     Serial.println("Rev string: ");
-    TcpClient_Buff.trim();           //去掉首位空格
+    TcpClient_Buff.trim();  //去掉首位空格
     // Serial.println(TcpClient_Buff);  //打印接收到的消息
     String getTopic = "";
     String getMsg = "";
@@ -69,12 +69,14 @@ void doTCPClientTick() {
       Serial.print("msg:--------");
       Serial.println(getMsg);  //打印截取到的消息值
     }
-    if (getMsg == "off") {  //如果收到指令on==打开灯
+    if (getMsg == "off") {
       Serial.print("It will on");
       Operating_airc(-1);
-    } else if (getMsg == "on") {  //如果收到指令off==关闭灯
+    } else if (getMsg == "on") {
       Serial.print("It will off");
       Operating_airc(0);
+    } else if (getMsg == "update") {  // 这里改为 else if
+      updateBin();                    //执行升级函数
     } else {
       int temperature = extractTemperature(getMsg.c_str());
       if (temperature != 0) {
@@ -83,9 +85,7 @@ void doTCPClientTick() {
         Operating_airc(temperature);
       }
     }
-    //else if(getMsg == "update"){  //如果收到指令update
-    //updateBin();//执行升级函数
-    //}
+
 
     TcpClient_Buff = "";
     TcpClient_BuffIndex = 0;
